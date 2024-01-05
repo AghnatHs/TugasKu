@@ -22,7 +22,7 @@ class TaskListBuilder extends ConsumerWidget {
         final task = tasks[index];
 
         return Dismissible(
-          behavior: HitTestBehavior.translucent,
+          behavior: HitTestBehavior.deferToChild,
           key: ValueKey<String>(task.id),
           background: Container(color: Colors.red),
           onDismissed: (DismissDirection direction) {
@@ -35,7 +35,7 @@ class TaskListBuilder extends ConsumerWidget {
           child: GestureDetector(
             onLongPress: () => DialogServices.pushEditTaskDialog(context, task),
             child: Card(
-              color: task.done ? Colors.black : null,
+              color: task.done ? Colors.black45 : null,
               margin: const EdgeInsets.all(2),
               borderOnForeground: false,
               child: CheckboxListTile(
@@ -45,7 +45,7 @@ class TaskListBuilder extends ConsumerWidget {
                 title: Text(
                   task.description,
                   style: TextStyle(
-                    color: due == 'Late' ? Colors.red : null,
+                    color: due == 'Late' ? Colors.red : Theme.of(context).colorScheme.onBackground,
                     fontWeight: FontWeight.bold,
                     fontSize: 17,
                     decoration: strikethroughDecoration(task.done),

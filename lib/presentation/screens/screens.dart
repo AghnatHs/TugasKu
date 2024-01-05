@@ -115,7 +115,7 @@ class HomeScreen extends ConsumerWidget {
     int tomorrowTasksLength = ref.watch(tomorrowTaskCounterProvider);
     double completedTasksPercent = ref.watch(completedTaskPercentageProvider);
     int completedTasksCount = ref.watch(completedTaskCounterProvider);
-    int lateTaskUncompletedCount = ref.watch(lateTaskUncompletedCounterProvider);
+    int lateTaskUncompletedCount = ref.watch(uncompletedLateTaskCounterProvider);
 
     return allTasksLength == 0
         ? const NoTaskPlaceHolder()
@@ -161,6 +161,7 @@ class HomeScreen extends ConsumerWidget {
                       ),
                     ),
                   ),
+                  // TASK WITH COMING DEADLINE
                   const Divider(),
                   lateTasksLength == 0 && todayTasksLength == 0 && tomorrowTasksLength == 0
                       ? Container()
@@ -209,11 +210,17 @@ class SettingsScreen extends ConsumerWidget {
     AppSetting appSetting = ref.watch(appSettingViewProvider);
     return Scaffold(
       appBar: AppBar(
-          title: Text(
-        'Settings',
-        style: GFont.monsterratTitle.copyWith(fontWeight: FontWeight.bold),
-      )),
+        title: Text(
+          'Settings',
+          style: GFont.monsterratTitle.copyWith(fontWeight: FontWeight.bold),
+        ),
+      ),
       body: SettingsList(
+        lightTheme: SettingsThemeData(
+            settingsListBackground: Theme.of(context).colorScheme.background),
+        darkTheme: SettingsThemeData(
+            settingsListBackground: Theme.of(context).colorScheme.background),
+        platform: DevicePlatform.device,
         sections: [
           SettingsSection(
             title: const Text('Theme'),

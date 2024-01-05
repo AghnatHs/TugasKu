@@ -17,7 +17,7 @@ final StateProvider<int> lateTaskCounterProvider = StateProvider<int>((Ref ref) 
       .length;
 });
 
-final StateProvider<int> lateTaskUncompletedCounterProvider = StateProvider<int>((Ref ref) {
+final StateProvider<int> uncompletedLateTaskCounterProvider = StateProvider<int>((Ref ref) {
   ref.watch(taskViewNotifierProvider);
   return ref
       .read(taskViewNotifierProvider.notifier)
@@ -55,6 +55,16 @@ final StateProvider<int> completedTaskCounterProvider = StateProvider<int>((Ref 
       .where((task) => task.done == true)
       .length;
 });
+
+final StateProvider<int> uncompletedTaskCounterProvider = StateProvider<int>((Ref ref) {
+  ref.watch(taskViewNotifierProvider);
+  return ref
+      .read(taskViewNotifierProvider.notifier)
+      .allTasks()
+      .where((task) => task.done == false)
+      .length;
+});
+
 
 class TaskViewNotifier extends StateNotifier<List<Task>> {
   final Ref ref;
@@ -103,34 +113,34 @@ class TaskViewNotifier extends StateNotifier<List<Task>> {
   }
 
   List<Task> allTasks() {
-    return TaskServices.allTasks(ref: ref).toList();
+    return TaskServices.allTasks(ref: ref).toList()..sort((a,b) => a.due.compareTo(b.due));
   }
 
   List<Task> lateTasks() {
-    return TaskServices.lateTasks(ref: ref).toList();
+    return TaskServices.lateTasks(ref: ref).toList()..sort((a,b) => a.due.compareTo(b.due));
   }
 
   List<Task> todayTasks() {
-    return TaskServices.todayTasks(ref: ref).toList();
+    return TaskServices.todayTasks(ref: ref).toList()..sort((a,b) => a.due.compareTo(b.due));
   }
 
   List<Task> tomorrowTasks() {
-    return TaskServices.tomorrowTasks(ref: ref).toList();
+    return TaskServices.tomorrowTasks(ref: ref).toList()..sort((a,b) => a.due.compareTo(b.due));
   }
 
   List<Task> thisWeekTasks() {
-    return TaskServices.thisWeekTasks(ref: ref).toList();
+    return TaskServices.thisWeekTasks(ref: ref).toList()..sort((a,b) => a.due.compareTo(b.due));
   }
 
   List<Task> nextWeekTasks() {
-    return TaskServices.nextWeekTasks(ref: ref).toList();
+    return TaskServices.nextWeekTasks(ref: ref).toList()..sort((a,b) => a.due.compareTo(b.due));
   }
 
   List<Task> thisMonthTasks() {
-    return TaskServices.thisMonthTasks(ref: ref).toList();
+    return TaskServices.thisMonthTasks(ref: ref).toList()..sort((a,b) => a.due.compareTo(b.due));
   }
 
   List<Task> laterTasks() {
-    return TaskServices.laterTasks(ref: ref).toList();
+    return TaskServices.laterTasks(ref: ref).toList()..sort((a,b) => a.due.compareTo(b.due));
   }
 }

@@ -20,7 +20,7 @@ class TaskDatabase {
     DateTime todayDT = DateTime.now();
     DateTime todayDTQueryMin = DateTime.now();
     DateTime todayDTQueryMax = DateTime(todayDT.year, todayDT.month, todayDT.day, 23, 59, 59);
-    return realm.query(r'due < $0 && due > $1',
+    return realm.query(r'due =< $0 && due >= $1',
         [todayDTQueryMax.toIso8601String(), todayDTQueryMin.toIso8601String()]);
   }
 
@@ -44,9 +44,10 @@ class TaskDatabase {
 
   RealmResults<Task> getNextWeekTasks() {
     DateTime todayDT = DateTime.now();
-    DateTime todayDTQueryMin = DateTime(todayDT.year, todayDT.month, todayDT.day + 7, 0, 0, 1);
+    DateTime todayDTQueryMin =
+        DateTime(todayDT.year, todayDT.month, todayDT.day + 7 + 1, 0, 0, 0);
     DateTime todayDTQueryMax =
-        DateTime(todayDT.year, todayDT.month, todayDT.day + 7 + 7, 23, 59, 59);
+        DateTime(todayDT.year, todayDT.month, todayDT.day + 7 + 1 + 7, 23, 59, 59);
     return realm.query(r'due <= $0 && due >= $1',
         [todayDTQueryMax.toIso8601String(), todayDTQueryMin.toIso8601String()]);
   }
@@ -54,9 +55,9 @@ class TaskDatabase {
   RealmResults<Task> getThisMonthTasks() {
     DateTime todayDT = DateTime.now();
     DateTime todayDTQueryMin =
-        DateTime(todayDT.year, todayDT.month, todayDT.day + 7 + 7 + 1, 0, 0, 1);
+        DateTime(todayDT.year, todayDT.month, todayDT.day + 7 + 1 + 7 + 1, 0, 0, 0);
     DateTime todayDTQueryMax =
-        DateTime(todayDT.year, todayDT.month, todayDT.day + 7 + 7 + 7 + 7, 23, 59, 59);
+        DateTime(todayDT.year, todayDT.month, todayDT.day + 7 + 1 + 7 + 1 + 21, 23, 59, 59);
     return realm.query(r'due <= $0 && due >= $1',
         [todayDTQueryMax.toIso8601String(), todayDTQueryMin.toIso8601String()]);
   }
@@ -64,7 +65,7 @@ class TaskDatabase {
   RealmResults<Task> getLaterTasks() {
     DateTime todayDT = DateTime.now();
     DateTime todayDTQuery =
-        DateTime(todayDT.year, todayDT.month, todayDT.day + 7 + 7 + 7 + 7 + 1, 0, 0, 1);
+        DateTime(todayDT.year, todayDT.month, todayDT.day + 7 + 1 + 7 + 1 + 21 + 1, 0, 0, 0);
     return realm.query(r'due >= $0', [todayDTQuery.toIso8601String()]);
   }
 

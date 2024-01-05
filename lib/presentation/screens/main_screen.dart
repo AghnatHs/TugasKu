@@ -21,7 +21,7 @@ class MainScreenState extends ConsumerState<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    int allTasksLength = ref.watch(taskViewNotifierProvider).length;
+    int uncompletedTasksLength = ref.watch(uncompletedTaskCounterProvider);
     return Scaffold(
       floatingActionButton: currentPageIndex == 2
           ? null
@@ -43,7 +43,8 @@ class MainScreenState extends ConsumerState<MainScreen> {
         destinations: <Widget>[
           NavigationDestination(
             icon: Badge(
-              label: Text(allTasksLength.toString()),
+              offset: const Offset(10, -7),
+              label: Text(uncompletedTasksLength.toString()),
               child: const Icon(Icons.checklist),
             ),
             label: 'Tasks',

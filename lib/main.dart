@@ -5,6 +5,7 @@ import 'package:todo_app/database/app_setting_database_provider.dart';
 import 'package:todo_app/notifier/app_setting_view_notifier.dart';
 import 'package:todo_app/presentation/screens/main_screen.dart';
 
+// TODO : CREATE REALM FLEXIBLE SYNC
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
