@@ -23,29 +23,32 @@ class ChooseSeedColorDialogState extends ConsumerState<ChooseSeedColorDialog> {
       content: SizedBox(
         width: 270,
         height: 300,
-        child: GridView.count(
-          crossAxisSpacing: 2,
-          padding: const EdgeInsets.all(25),
-          crossAxisCount: 2,
-          children: List.generate(
-            SETTINGS_KEY.SEED_COLORS.length,
-            (index) {
-              String seedColorKey = SETTINGS_KEY.SEED_COLORS[index];
-              Color color = AppSettingServices.getColorFromKey(seedColorKey);
-              return Card(
-                child: InkWell(
-                  splashColor: color,
-                  onTap: () {
-                    ref.read(appSettingViewProvider.notifier).setSeedColor(seedColorKey);
-                  },
-                  child: Center(
-                      child: Text(
-                    seedColorKey,
-                    style: TextStyle(color: color),
-                  )),
-                ),
-              );
-            },
+        child: Scrollbar(
+          thumbVisibility: true,
+          child: GridView.count(
+            crossAxisSpacing: 2,
+            padding: const EdgeInsets.all(25),
+            crossAxisCount: 2,
+            children: List.generate(
+              SETTINGS_KEY.SEED_COLORS.length,
+              (index) {
+                String seedColorKey = SETTINGS_KEY.SEED_COLORS[index];
+                Color color = AppSettingServices.getColorFromKey(seedColorKey);
+                return Card(
+                  child: InkWell(
+                    splashColor: color,
+                    onTap: () {
+                      ref.read(appSettingViewProvider.notifier).setSeedColor(seedColorKey);
+                    },
+                    child: Center(
+                        child: Text(
+                      seedColorKey,
+                      style: TextStyle(color: color),
+                    )),
+                  ),
+                );
+              },
+            ),
           ),
         ),
       ),

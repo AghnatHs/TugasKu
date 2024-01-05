@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:todo_app/core/fonts.dart';
 import 'package:todo_app/model/app_setting_model.dart';
+import 'package:todo_app/notifier/app_about_notifier.dart';
 import 'package:todo_app/notifier/app_setting_view_notifier.dart';
 import 'package:todo_app/notifier/task_view_notifier.dart';
 import 'package:todo_app/presentation/widgets/shared/tasks_due_section.dart';
@@ -113,6 +114,7 @@ class HomeScreen extends ConsumerWidget {
     int lateTasksLength = ref.watch(lateTaskCounterProvider);
     int todayTasksLength = ref.watch(todayTaskCounterProvider);
     int tomorrowTasksLength = ref.watch(tomorrowTaskCounterProvider);
+    int thisWeekTasksLength = ref.watch(thisWeekTaskCounterProvider);
     double completedTasksPercent = ref.watch(completedTaskPercentageProvider);
     int completedTasksCount = ref.watch(completedTaskCounterProvider);
     int lateTaskUncompletedCount = ref.watch(uncompletedLateTaskCounterProvider);
@@ -120,9 +122,7 @@ class HomeScreen extends ConsumerWidget {
     return allTasksLength == 0
         ? const NoTaskPlaceHolder()
         : SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Column(
+            child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(DateFormat('EE, d MMMM').format(DateTime.now()),
@@ -163,7 +163,10 @@ class HomeScreen extends ConsumerWidget {
                   ),
                   // TASK WITH COMING DEADLINE
                   const Divider(),
-                  lateTasksLength == 0 && todayTasksLength == 0 && tomorrowTasksLength == 0
+                  lateTasksLength == 0 &&
+                          todayTasksLength == 0 &&
+                          tomorrowTasksLength == 0 &&
+                          thisWeekTasksLength == 0
                       ? Container()
                       : Text(
                           'Deadline coming !',
@@ -190,6 +193,11 @@ class HomeScreen extends ConsumerWidget {
                                 tasks: ref
                                     .watch(taskViewNotifierProvider.notifier)
                                     .tomorrowTasks()),
+                            TaskDueSection(
+                                dueTitle: 'This Week',
+                                tasks: ref
+                                    .watch(taskViewNotifierProvider.notifier)
+                                    .thisWeekTasks()),
                           ],
                         ),
                       ),
@@ -197,7 +205,6 @@ class HomeScreen extends ConsumerWidget {
                   ),
                 ],
               ),
-            ),
           );
   }
 }
@@ -243,6 +250,15 @@ class SettingsScreen extends ConsumerWidget {
                     ? const Icon(Icons.wb_sunny)
                     : const Icon(Icons.wb_sunny_outlined),
                 title: const Text('Dark Mode'),
+              ),
+            ],
+          ),
+          SettingsSection(
+            title: const Text('About'),
+            tiles: <SettingsTile>[
+              SettingsTile.navigation(
+                leading: const Icon(Icons.info_outline),
+                title: Text('Version ${ref.watch(appVersionNotifierProvider)}'),
               ),
             ],
           ),

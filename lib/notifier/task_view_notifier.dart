@@ -42,6 +42,14 @@ final StateProvider<int> tomorrowTaskCounterProvider = StateProvider<int>((Ref r
       .length;
 });
 
+final StateProvider<int> thisWeekTaskCounterProvider = StateProvider<int>((Ref ref) {
+  ref.watch(taskViewNotifierProvider);
+  return ref
+      .read(taskViewNotifierProvider.notifier)
+      .thisWeekTasks()
+      .length;
+});
+
 final StateProvider<double> completedTaskPercentageProvider = StateProvider<double>((Ref ref) {
   ref.watch(taskViewNotifierProvider);
   return ref.read(taskViewNotifierProvider.notifier).completedPercentage;
