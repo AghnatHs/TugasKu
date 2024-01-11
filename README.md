@@ -11,18 +11,29 @@ I created this app for learning purpose only, especially architecturing a Flutte
 - and many more packages.
 
 ### Project Structure
-- **Core**
+- **Core** :
 Contains constants, function, and fonts type to use across the project
-- **Database**
+- **Database** :
 Contains database classes for querying etc and return models. Using Riverpod Providers, each database classes is instantianted and configured.
 - **Model**
-- **Notifier**
+- **Notifier** :
 Notifier updating UIs using it state, passing action from UIs to Services, and interacting with Services to update its state.
-- **Services**
+- **Services** :
 Services directly communicate CRUD operations with database.
 UI Services is for simplify creating dialog and snackbar.
-- **Presentation**
+- **Presentation** :
 Screens and widgets used in project. Widgets is interacting with Notifiers (using Riverpod ref.watch(...) for updating UI or/and ref.read(...) for user action)
 
 ### TODO
 - To create backup feature using Realm Flexible Sync.
+
+## Screenshots
+<table>
+  <tbody>
+    <tr>
+      <td><img src="github_screenshots/ss1.jpg"/></td>
+      <td><img src="github_screenshots/ss2.jpg"/></td>
+      <td><img src="github_screenshots/ss3.jpg"/></td>
+    </tr>
+  </tbody>
+</table>
