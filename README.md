@@ -1,16 +1,28 @@
-# todo_app
+##TugasKu
+TugasKu (*'My Tasks'* or *'My Assignments' *in English) is a simple ToDo List app and has a feature that commonly found in ToDo List apps in general. 
 
-A new Flutter project.
+I created this app for learning purpose only, especially architecturing a Flutter project.
 
-## Getting Started
+### What i Used?
+- [Flutter](https://flutter.dev/ "Flutter")
+- [Realm](https://pub.dev/packages/realm "Realm") and [SharedPreferences](https://pub.dev/packages/shared_preferences "SharedPreferences") for storing database (currently only store locally)
+- [Riverpod](https://riverpod.dev/ "Riverpod") for State Management
+- [Google Fonts](https://pub.dev/packages/google_fonts "Google Fonts")
+- and many more packages.
 
-This project is a starting point for a Flutter application.
+### Project Structure
+- ** Core**
+Contains constants, function, and fonts type to use across the project
+- **Database**
+Contains database classes for querying etc and return models. Using Riverpod Providers, each database classes is instantianted and configured.
+- **Model**
+- **Notifier**
+Notifier updating UIs using it state, passing action from UIs to Services, and interacting with Services to update its state.
+- **Services**
+Services directly communicate CRUD operations with database.
+UI Services is for simplify creating dialog and snackbar.
+- **Presentation**
+Screens and widgets used in project. Widgets is interacting with Notifiers (using Riverpod ref.watch(...) for updating UI or/and ref.read(...) for user action)
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### TODO
+- To create backup feature using Realm Flexible Sync.
