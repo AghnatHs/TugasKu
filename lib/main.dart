@@ -31,7 +31,7 @@ class TodoApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
-      title: 'ToDo List App',
+      title: 'TugasKu',
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
         useMaterial3: true,

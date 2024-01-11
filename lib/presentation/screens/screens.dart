@@ -258,7 +258,8 @@ class SettingsScreen extends ConsumerWidget {
             tiles: <SettingsTile>[
               SettingsTile.navigation(
                 leading: const Icon(Icons.info_outline),
-                title: Text('Version ${ref.watch(appVersionNotifierProvider)}'),
+                title: const Text('TugasKu'),
+                description: Text('Version ${ref.watch(appVersionNotifierProvider)}'),
               ),
             ],
           ),
