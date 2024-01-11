@@ -1,4 +1,4 @@
-##TugasKu
+## TugasKu
 TugasKu (*'My Tasks'* or *'My Assignments' *in English) is a simple ToDo List app and has a feature that commonly found in ToDo List apps in general. 
 
 I created this app for learning purpose only, especially architecturing a Flutter project.
@@ -11,7 +11,7 @@ I created this app for learning purpose only, especially architecturing a Flutte
 - and many more packages.
 
 ### Project Structure
-- ** Core**
+- **Core**
 Contains constants, function, and fonts type to use across the project
 - **Database**
 Contains database classes for querying etc and return models. Using Riverpod Providers, each database classes is instantianted and configured.
