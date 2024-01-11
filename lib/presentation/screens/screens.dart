@@ -258,7 +258,7 @@ class SettingsScreen extends ConsumerWidget {
             tiles: <SettingsTile>[
               SettingsTile.navigation(
                 leading: const Icon(Icons.info_outline),
-                title: const Text('TugasKu'),
+                title: Text('TugasKu', style: GFont.dialogTitle,),
                 description: Text('Version ${ref.watch(appVersionNotifierProvider)}'),
               ),
             ],
