@@ -27,7 +27,7 @@ class AppSettingDatabase {
 
   bool getBrightness() => _prefs.getBool(SETTINGS_KEY.BRIGHTNESS_KEY) ?? true;
 
-  static getColorFromKey(String seedColorKey) {
+  static Color getColorFromKey(String seedColorKey) {
     Color seedColor;
     switch (seedColorKey) {
       case SETTINGS_KEY.SEED_COLOR_AMBER:
@@ -40,7 +40,6 @@ class AppSettingDatabase {
         seedColor = Colors.brown;
       case SETTINGS_KEY.SEED_COLOR_CYAN:
         seedColor = Colors.cyan;
-        seedColor = Colors.deepPurple;
       case SETTINGS_KEY.SEED_COLOR_GREEN:
         seedColor = Colors.green;
       case SETTINGS_KEY.SEED_COLOR_GREY:
@@ -73,41 +72,7 @@ class AppSettingDatabase {
     Brightness brightness;
     brightness = isDark ? Brightness.dark : Brightness.light;
 
-    switch (seedColorIdentifier) {
-      case SETTINGS_KEY.SEED_COLOR_AMBER:
-        seedColor = Colors.amber;
-      case SETTINGS_KEY.SEED_COLOR_BLUE:
-        seedColor = Colors.blue;
-      case SETTINGS_KEY.SEED_COLOR_BLUE_GREY:
-        seedColor = Colors.blueGrey;
-      case SETTINGS_KEY.SEED_COLOR_BROWN:
-        seedColor = Colors.brown;
-      case SETTINGS_KEY.SEED_COLOR_CYAN:
-        seedColor = Colors.cyan;
-        seedColor = Colors.deepPurple;
-      case SETTINGS_KEY.SEED_COLOR_GREEN:
-        seedColor = Colors.green;
-      case SETTINGS_KEY.SEED_COLOR_GREY:
-        seedColor = Colors.grey;
-      case SETTINGS_KEY.SEED_COLOR_INDIGO:
-        seedColor = Colors.indigo;
-      case SETTINGS_KEY.SEED_COLOR_LIME:
-        seedColor = Colors.lime;
-      case SETTINGS_KEY.SEED_COLOR_ORANGE:
-        seedColor = Colors.orange;
-      case SETTINGS_KEY.SEED_COLOR_PINK:
-        seedColor = Colors.pink;
-      case SETTINGS_KEY.SEED_COLOR_PURPLE:
-        seedColor = Colors.purple;
-      case SETTINGS_KEY.SEED_COLOR_RED:
-        seedColor = Colors.red;
-      case SETTINGS_KEY.SEED_COLOR_TEAL:
-        seedColor = Colors.teal;
-      case SETTINGS_KEY.SEED_COLOR_YELLOW:
-        seedColor = Colors.yellow;
-      default:
-        seedColor = Colors.green;
-    }
+    seedColor = getColorFromKey(seedColorIdentifier);
 
     return AppSetting(seedColor, brightness, seedColorIdentifier, isDark);
   }

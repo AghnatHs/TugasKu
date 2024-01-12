@@ -24,6 +24,10 @@ UI Services is for simplify creating dialog and snackbar.
 - **Presentation** :
 Screens and widgets used in project. Widgets is interacting with Notifiers (using Riverpod ref.watch(...) for updating UI or/and ref.read(...) for user action)
 
+### Fonts used
+- [Monsterrat](https://fonts.google.com/specimen/Montserrat)
+- [Yantramanav](https://fonts.google.com/specimen/Yantramanav)
+
 ### TODO
 - To create backup feature using Realm Flexible Sync.
 
