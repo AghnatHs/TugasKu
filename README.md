@@ -11,18 +11,18 @@ I created this app for learning purpose only, especially architecturing a Flutte
 - and many more packages.
 
 ### Project Structure
-- **Core** :
-Contains constants, function, and fonts type to use across the project
-- **Database** :
-Contains database classes for querying etc and return models. Using Riverpod Providers, each database classes is instantianted and configured.
+- **Core**
+- **Database**
 - **Model**
-- **Notifier** :
-Notifier updating UIs using it state, passing action from UIs to Services, and interacting with Services to update its state.
-- **Services** :
-Services directly communicate CRUD operations with database.
-UI Services is for simplify creating dialog and snackbar.
-- **Presentation** :
-Screens and widgets used in project. Widgets is interacting with Notifiers (using Riverpod ref.watch(...) for updating UI or/and ref.read(...) for user action)
+- **Notifier**
+- **Services**
+- **Presentation**
+
+### Flow
+- **Updating UI**: 
+Widgets updating itself from watching provider (using ref.watch(...)) (lets call it usecase), usecase is watching a notifier and using its state to provide some value (example: `todayTaskCounterProvider` watching `taskViewNotifierProvider` and use its state to provide how many today tasks are. Widgets then watching `todayTaskCounterProvider` to update its UI). 
+- **Action**: 
+User press a widget -> widget call ref.read(...) to notifier function -> notifier call a services -> services call a database -> database return a data to services then to notifier -> notifier updating its state
 
 ### Fonts used
 - [Monsterrat](https://fonts.google.com/specimen/Montserrat)
