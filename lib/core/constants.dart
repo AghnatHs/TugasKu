@@ -39,3 +39,7 @@ class SETTINGS_KEY {
   // BRIGHTNESS
   static const String BRIGHTNESS_KEY = 'br';
 }
+
+class DOTENV {
+  static const String REALM_APP_ID = "REALM_APP_ID";
+}

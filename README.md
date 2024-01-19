@@ -7,8 +7,8 @@ I created this app for learning purpose only, especially architecturing a Flutte
 - [Flutter](https://flutter.dev/ "Flutter")
 - [Realm](https://pub.dev/packages/realm "Realm") and [SharedPreferences](https://pub.dev/packages/shared_preferences "SharedPreferences") for storing database (currently only store locally)
 - [Riverpod](https://riverpod.dev/ "Riverpod") for State Management
-- [Google Fonts](https://pub.dev/packages/google_fonts "Google Fonts")
-- and many more packages.
+- [google_fonts](https://pub.dev/packages/google_fonts "Google Fonts")
+- [flutter_dotenv](https://pub.dev/packages/flutter_dotenv "flutter_dotenv")
 
 ### Project Structure
 - **Core**
