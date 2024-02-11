@@ -7,6 +7,7 @@ import 'package:todo_app/model/app_setting_model.dart';
 import 'package:todo_app/notifier/app_about_notifier.dart';
 import 'package:todo_app/notifier/app_setting_view_notifier.dart';
 import 'package:todo_app/notifier/task_view_notifier.dart';
+import 'package:todo_app/presentation/screens/authentication_screen.dart';
 import 'package:todo_app/presentation/widgets/shared/tasks_due_section.dart';
 import 'package:todo_app/presentation/widgets/shared/no_task_placeholder.dart';
 import 'package:todo_app/services/ui/dialog_services.dart';
@@ -250,6 +251,18 @@ class SettingsScreen extends ConsumerWidget {
                     ? const Icon(Icons.wb_sunny)
                     : const Icon(Icons.wb_sunny_outlined),
                 title: const Text('Dark Mode'),
+              ),
+            ],
+          ),
+          SettingsSection(
+            title: const Text('Sync'),
+            tiles: <SettingsTile>[
+              SettingsTile.navigation(
+                leading: const Icon(Icons.account_box),
+                title: const Text('Login or Register'),
+                onPressed: (BuildContext context) {
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const AuthenticationScreen()));
+                },
               ),
             ],
           ),
