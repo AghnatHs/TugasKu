@@ -4,6 +4,7 @@ import 'package:todo_app/model/task_model.dart';
 import 'package:todo_app/presentation/widgets/info_widgets/help_dialog.dart';
 import 'package:todo_app/presentation/widgets/info_widgets/edit_task_dialog.dart';
 import 'package:todo_app/presentation/widgets/setting_widgets/choose_seed_color_dialog.dart';
+import 'package:todo_app/presentation/widgets/setting_widgets/choose_task_font_size_dialog.dart';
 import 'package:todo_app/presentation/widgets/shared/create_task_dialog.dart';
 
 class DialogServices {
@@ -38,6 +39,14 @@ class DialogServices {
       barrierColor: Colors.black54,
       context: context,
       builder: (BuildContext context) => const ChooseSeedColorDialog(),
+    );
+  }
+
+  static pushChooseTaskFontSizeDialog(BuildContext context) {
+    showDialog(
+      barrierColor: Colors.black54,
+      context: context,
+      builder: (BuildContext context) => const ChooseTaskFontSizeDialog(),
     );
   }
 }

@@ -5,5 +5,6 @@ class AppSetting {
   final Brightness brightness;
   final String color;
   final bool isDark;
-  AppSetting(this.seedColor, this.brightness, this.color, this.isDark);
+  final int taskFontSize;
+  AppSetting(this.seedColor, this.brightness, this.color, this.isDark, this.taskFontSize);
 }

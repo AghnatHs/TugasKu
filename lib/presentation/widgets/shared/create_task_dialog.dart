@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:todo_app/core/constants.dart';
 import 'package:todo_app/core/fonts.dart';
 import 'package:todo_app/notifier/task_view_notifier.dart';
 import 'package:todo_app/presentation/widgets/shared/dialog_cancel_button.dart';
@@ -100,7 +101,7 @@ class CreateTaskDialogState extends ConsumerState<CreateTaskDialog> {
                     String taskDesc = taskNameController.value.text;
                     ref.read(taskViewNotifierProvider.notifier).createTask(
                           description: taskDesc,
-                          due: dueDate == 'none' ? dueDateDefault : dueDate,
+                          due: dueDate == 'none' ? NEW_TASK.DEFAULT_NO_DUE_DATE : dueDate,
                           done: false,
                         );
                     Navigator.pop(context);

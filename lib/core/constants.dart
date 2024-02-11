@@ -38,8 +38,16 @@ class SETTINGS_KEY {
   ];
   // BRIGHTNESS
   static const String BRIGHTNESS_KEY = 'br';
+
+  // TEXT FONT SIZE
+  static const int TASK_FONT_SIZE_DEFAULT = 14;
+  static const String TASK_FONT_SIZE_KEY = 'fts';
 }
 
 class DOTENV {
   static const String REALM_APP_ID = "REALM_APP_ID";
+}
+
+class NEW_TASK {
+  static const String DEFAULT_NO_DUE_DATE = 'none';
 }

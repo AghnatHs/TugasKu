@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo_app/core/fonts.dart';
 import 'package:todo_app/core/time_functions.dart';
+import 'package:todo_app/model/app_setting_model.dart';
 import 'package:todo_app/model/task_model.dart';
+import 'package:todo_app/notifier/app_setting_view_notifier.dart';
 import 'package:todo_app/notifier/task_view_notifier.dart';
 import 'package:todo_app/services/ui/dialog_services.dart';
 import 'package:todo_app/services/ui/snackbar_services.dart';
@@ -14,6 +16,7 @@ class TaskListBuilder extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    AppSetting appSetting = ref.watch(appSettingViewProvider);
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
@@ -45,16 +48,19 @@ class TaskListBuilder extends ConsumerWidget {
                 title: Text(
                   task.description,
                   style: TextStyle(
-                    color: due == 'Late' ? Colors.red : Theme.of(context).colorScheme.onBackground,
+                    color: due == 'Late'
+                        ? Colors.red
+                        : Theme.of(context).colorScheme.onBackground,
                     fontWeight: FontWeight.bold,
-                    fontSize: 17,
+                    fontSize: appSetting.taskFontSize.toDouble(),
                     decoration: strikethroughDecoration(task.done),
                   ),
                 ),
                 subtitle: Text(
                   dueDateToFormattedStr(dueDate: task.due),
-                  style:
-                      TextStyle(fontSize: 13, decoration: strikethroughDecoration(task.done)),
+                  style: TextStyle(
+                      fontSize: appSetting.taskFontSize.toDouble() - 1,
+                      decoration: strikethroughDecoration(task.done)),
                 ),
                 value: task.done,
                 onChanged: (bool? value) {

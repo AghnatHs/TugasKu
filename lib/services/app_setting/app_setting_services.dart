@@ -16,6 +16,10 @@ class AppSettingServices {
     ref.watch(appSettingDatabaseProvider).toogleBrightness();
   }
 
+  static void setTaskFontSize(Ref ref, int fontSize) {
+    ref.watch(appSettingDatabaseProvider).setTaskFontSize(fontSize);
+  }
+
   static AppSetting getAppSetting(Ref ref) {
     return ref.watch(appSettingDatabaseProvider).getAppSetting();
   }

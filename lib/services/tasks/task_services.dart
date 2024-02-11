@@ -44,6 +44,10 @@ class TaskServices {
     ref.watch(taskDatabaseProvider).toogleTask(task: task);
   }
 
+  static RealmResults<Task> noDueTasks({required Ref ref}) {
+    return ref.watch(taskDatabaseProvider).getNoDueTask();
+  }
+
   static RealmResults<Task> allTasks({required Ref ref}) {
     return ref.watch(taskDatabaseProvider).getAllTasks();
   }

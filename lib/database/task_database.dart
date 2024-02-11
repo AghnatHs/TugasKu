@@ -1,6 +1,7 @@
 // ignore_for_file: library_prefixes
 
 import 'package:realm/realm.dart';
+import 'package:todo_app/core/constants.dart';
 import 'package:todo_app/model/task_model.dart';
 import 'package:uuid/uuid.dart' as UUID;
 
@@ -9,6 +10,10 @@ var uuid = const UUID.Uuid();
 class TaskDatabase {
   Realm realm;
   TaskDatabase(this.realm);
+
+  RealmResults<Task> getNoDueTask() {
+    return realm.query(r'due == $0', [NEW_TASK.DEFAULT_NO_DUE_DATE]);
+  }
 
   RealmResults<Task> getAllTasks() => realm.all<Task>();
   RealmResults<Task> getLateTasks() {
@@ -66,7 +71,7 @@ class TaskDatabase {
     DateTime todayDT = DateTime.now();
     DateTime todayDTQuery =
         DateTime(todayDT.year, todayDT.month, todayDT.day + 7 + 1 + 7 + 1 + 21 + 1, 0, 0, 0);
-    return realm.query(r'due >= $0', [todayDTQuery.toIso8601String()]);
+    return realm.query(r'due >= $0 AND due != $1', [todayDTQuery.toIso8601String(), NEW_TASK.DEFAULT_NO_DUE_DATE]);
   }
 
   void createTask({

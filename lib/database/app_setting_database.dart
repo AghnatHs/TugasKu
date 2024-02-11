@@ -7,6 +7,7 @@ class AppSettingDatabase {
   final SharedPreferences _prefs;
   late String seedColorIdentifier;
   late bool isDark;
+  late int taskFontSize;
   AppSettingDatabase(this._prefs) {
     seedColorIdentifier = getSeedColor();
     isDark = getBrightness();
@@ -26,6 +27,13 @@ class AppSettingDatabase {
   }
 
   bool getBrightness() => _prefs.getBool(SETTINGS_KEY.BRIGHTNESS_KEY) ?? true;
+
+  void setTaskFontSize(int fontSize) {
+    _prefs.setInt(SETTINGS_KEY.TASK_FONT_SIZE_KEY, fontSize);
+  }
+
+  int getTaskFontSize() =>
+      _prefs.getInt(SETTINGS_KEY.TASK_FONT_SIZE_KEY) ?? SETTINGS_KEY.TASK_FONT_SIZE_DEFAULT;
 
   static Color getColorFromKey(String seedColorKey) {
     Color seedColor;
@@ -68,12 +76,16 @@ class AppSettingDatabase {
   }
 
   AppSetting getAppSetting() {
-    Color seedColor;
-    Brightness brightness;
-    brightness = isDark ? Brightness.dark : Brightness.light;
+    Color seedColor = getColorFromKey(seedColorIdentifier);
+    Brightness brightness = isDark ? Brightness.dark : Brightness.light;
+    int taskFontSize = getTaskFontSize();
 
-    seedColor = getColorFromKey(seedColorIdentifier);
-
-    return AppSetting(seedColor, brightness, seedColorIdentifier, isDark);
+    return AppSetting(
+      seedColor,
+      brightness,
+      seedColorIdentifier,
+      isDark,
+      taskFontSize,
+    );
   }
 }

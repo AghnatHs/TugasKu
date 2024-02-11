@@ -11,10 +11,7 @@ final taskViewNotifierProvider =
 
 final StateProvider<int> lateTaskCounterProvider = StateProvider<int>((Ref ref) {
   ref.watch(taskViewNotifierProvider);
-  return ref
-      .read(taskViewNotifierProvider.notifier)
-      .lateTasks()
-      .length;
+  return ref.read(taskViewNotifierProvider.notifier).lateTasks().length;
 });
 
 final StateProvider<int> uncompletedLateTaskCounterProvider = StateProvider<int>((Ref ref) {
@@ -28,26 +25,17 @@ final StateProvider<int> uncompletedLateTaskCounterProvider = StateProvider<int>
 
 final StateProvider<int> todayTaskCounterProvider = StateProvider<int>((Ref ref) {
   ref.watch(taskViewNotifierProvider);
-  return ref
-      .read(taskViewNotifierProvider.notifier)
-      .todayTasks()
-      .length;
+  return ref.read(taskViewNotifierProvider.notifier).todayTasks().length;
 });
 
 final StateProvider<int> tomorrowTaskCounterProvider = StateProvider<int>((Ref ref) {
   ref.watch(taskViewNotifierProvider);
-  return ref
-      .read(taskViewNotifierProvider.notifier)
-      .tomorrowTasks()
-      .length;
+  return ref.read(taskViewNotifierProvider.notifier).tomorrowTasks().length;
 });
 
 final StateProvider<int> thisWeekTaskCounterProvider = StateProvider<int>((Ref ref) {
   ref.watch(taskViewNotifierProvider);
-  return ref
-      .read(taskViewNotifierProvider.notifier)
-      .thisWeekTasks()
-      .length;
+  return ref.read(taskViewNotifierProvider.notifier).thisWeekTasks().length;
 });
 
 final StateProvider<double> completedTaskPercentageProvider = StateProvider<double>((Ref ref) {
@@ -72,7 +60,6 @@ final StateProvider<int> uncompletedTaskCounterProvider = StateProvider<int>((Re
       .where((task) => task.done == false)
       .length;
 });
-
 
 class TaskViewNotifier extends StateNotifier<List<Task>> {
   final Ref ref;
@@ -120,35 +107,43 @@ class TaskViewNotifier extends StateNotifier<List<Task>> {
     state = TaskServices.allTasks(ref: ref).toList();
   }
 
+  List<Task> noDueTasks() {
+    return TaskServices.noDueTasks(ref: ref).toList();
+  }
+
   List<Task> allTasks() {
-    return TaskServices.allTasks(ref: ref).toList()..sort((a,b) => a.due.compareTo(b.due));
+    return TaskServices.allTasks(ref: ref).toList()..sort((a, b) => a.due.compareTo(b.due));
   }
 
   List<Task> lateTasks() {
-    return TaskServices.lateTasks(ref: ref).toList()..sort((a,b) => a.due.compareTo(b.due));
+    return TaskServices.lateTasks(ref: ref).toList()..sort((a, b) => a.due.compareTo(b.due));
   }
 
   List<Task> todayTasks() {
-    return TaskServices.todayTasks(ref: ref).toList()..sort((a,b) => a.due.compareTo(b.due));
+    return TaskServices.todayTasks(ref: ref).toList()..sort((a, b) => a.due.compareTo(b.due));
   }
 
   List<Task> tomorrowTasks() {
-    return TaskServices.tomorrowTasks(ref: ref).toList()..sort((a,b) => a.due.compareTo(b.due));
+    return TaskServices.tomorrowTasks(ref: ref).toList()
+      ..sort((a, b) => a.due.compareTo(b.due));
   }
 
   List<Task> thisWeekTasks() {
-    return TaskServices.thisWeekTasks(ref: ref).toList()..sort((a,b) => a.due.compareTo(b.due));
+    return TaskServices.thisWeekTasks(ref: ref).toList()
+      ..sort((a, b) => a.due.compareTo(b.due));
   }
 
   List<Task> nextWeekTasks() {
-    return TaskServices.nextWeekTasks(ref: ref).toList()..sort((a,b) => a.due.compareTo(b.due));
+    return TaskServices.nextWeekTasks(ref: ref).toList()
+      ..sort((a, b) => a.due.compareTo(b.due));
   }
 
   List<Task> thisMonthTasks() {
-    return TaskServices.thisMonthTasks(ref: ref).toList()..sort((a,b) => a.due.compareTo(b.due));
+    return TaskServices.thisMonthTasks(ref: ref).toList()
+      ..sort((a, b) => a.due.compareTo(b.due));
   }
 
   List<Task> laterTasks() {
-    return TaskServices.laterTasks(ref: ref).toList()..sort((a,b) => a.due.compareTo(b.due));
+    return TaskServices.laterTasks(ref: ref).toList()..sort((a, b) => a.due.compareTo(b.due));
   }
 }

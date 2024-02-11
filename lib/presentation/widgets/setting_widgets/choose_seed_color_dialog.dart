@@ -55,7 +55,7 @@ class ChooseSeedColorDialogState extends ConsumerState<ChooseSeedColorDialog> {
       actions: [
         DialogCancelButton(
           ctx: context,
-          text: 'OK',
+          text: 'CLOSE',
         ),
       ],
     );

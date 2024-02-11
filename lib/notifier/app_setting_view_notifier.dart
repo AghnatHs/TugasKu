@@ -19,6 +19,11 @@ class AppSettingViewNotifier extends StateNotifier<AppSetting> {
     state = AppSettingServices.getAppSetting(ref);
   }
 
+  void setTaskFontSize(int fontSize) {
+    AppSettingServices.setTaskFontSize(ref, fontSize);
+    state = AppSettingServices.getAppSetting(ref);
+  }
+
   bool isDark() {
     return AppSettingServices.isDark(ref);
   }

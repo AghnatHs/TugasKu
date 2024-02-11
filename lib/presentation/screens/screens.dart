@@ -63,6 +63,10 @@ class InfoScreenState extends ConsumerState<InfoScreen> {
                           shrinkWrap: true,
                           children: [
                             TaskDueSection(
+                                dueTitle: 'No Due',
+                                tasks:
+                                    ref.watch(taskViewNotifierProvider.notifier).noDueTasks()),
+                            TaskDueSection(
                                 dueTitle: 'Late',
                                 tasks:
                                     ref.watch(taskViewNotifierProvider.notifier).lateTasks()),
@@ -124,88 +128,87 @@ class HomeScreen extends ConsumerWidget {
         ? const NoTaskPlaceHolder()
         : SafeArea(
             child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(DateFormat('EE, d MMMM').format(DateTime.now()),
-                      style: GFont.monsterratTitle.copyWith(fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 10),
-                  Text(
-                    'You have\n$todayTasksLength task for today !',
-                    style: GFont.monsterratTitle
-                        .copyWith(fontSize: 24, fontWeight: FontWeight.bold),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(DateFormat('EE, d MMMM').format(DateTime.now()),
+                    style: GFont.monsterratTitle.copyWith(fontWeight: FontWeight.bold)),
+                const SizedBox(height: 10),
+                Text(
+                  'You have\n$todayTasksLength task for today !',
+                  style: GFont.monsterratTitle
+                      .copyWith(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10),
+                Card(
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.all(16),
+                    title: const Text('Task Completed (Total)'),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                            '$completedTasksCount / $allTasksLength task done\n$lateTaskUncompletedCount tasks are late !'),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        allTasksLength == 0
+                            ? Container()
+                            : LinearPercentIndicator(
+                                padding: EdgeInsets.zero,
+                                percent: completedTasksPercent / 100,
+                                lineHeight: 20,
+                                progressColor: Theme.of(context).colorScheme.primary,
+                                backgroundColor: Theme.of(context).disabledColor,
+                                center: Text(
+                                    '${completedTasksPercent.ceil().toStringAsFixed(0)} %'),
+                              )
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: 10),
-                  Card(
-                    child: ListTile(
-                      contentPadding: const EdgeInsets.all(16),
-                      title: const Text('Task Completed (Total)'),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                ),
+                // TASK WITH COMING DEADLINE
+                const Divider(),
+                lateTasksLength == 0 &&
+                        todayTasksLength == 0 &&
+                        tomorrowTasksLength == 0 &&
+                        thisWeekTasksLength == 0
+                    ? Container()
+                    : Text(
+                        'Deadline coming !',
+                        style: GFont.monsterratTitle2.copyWith(fontWeight: FontWeight.bold),
+                      ),
+                const SizedBox(height: 10),
+                Expanded(
+                  child: Scrollbar(
+                    child: SingleChildScrollView(
+                      child: ListView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
                         children: [
-                          Text(
-                              '$completedTasksCount / $allTasksLength task done\n$lateTaskUncompletedCount tasks are late !'),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          allTasksLength == 0
-                              ? Container()
-                              : LinearPercentIndicator(
-                                  padding: EdgeInsets.zero,
-                                  percent: completedTasksPercent / 100,
-                                  lineHeight: 20,
-                                  progressColor: Theme.of(context).colorScheme.primary,
-                                  backgroundColor: Theme.of(context).disabledColor,
-                                  center: Text(
-                                      '${completedTasksPercent.ceil().toStringAsFixed(0)} %'),
-                                )
+                          TaskDueSection(
+                              dueTitle: 'Late',
+                              tasks: ref.watch(taskViewNotifierProvider.notifier).lateTasks()),
+                          TaskDueSection(
+                              dueTitle: 'Today',
+                              tasks:
+                                  ref.watch(taskViewNotifierProvider.notifier).todayTasks()),
+                          TaskDueSection(
+                              dueTitle: 'Tomorrow',
+                              tasks: ref
+                                  .watch(taskViewNotifierProvider.notifier)
+                                  .tomorrowTasks()),
+                          TaskDueSection(
+                              dueTitle: 'This Week',
+                              tasks: ref
+                                  .watch(taskViewNotifierProvider.notifier)
+                                  .thisWeekTasks()),
                         ],
                       ),
                     ),
                   ),
-                  // TASK WITH COMING DEADLINE
-                  const Divider(),
-                  lateTasksLength == 0 &&
-                          todayTasksLength == 0 &&
-                          tomorrowTasksLength == 0 &&
-                          thisWeekTasksLength == 0
-                      ? Container()
-                      : Text(
-                          'Deadline coming !',
-                          style: GFont.monsterratTitle2.copyWith(fontWeight: FontWeight.bold),
-                        ),
-                  const SizedBox(height: 10),
-                  Expanded(
-                    child: Scrollbar(
-                      child: SingleChildScrollView(
-                        child: ListView(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          children: [
-                            TaskDueSection(
-                                dueTitle: 'Late',
-                                tasks:
-                                    ref.watch(taskViewNotifierProvider.notifier).lateTasks()),
-                            TaskDueSection(
-                                dueTitle: 'Today',
-                                tasks:
-                                    ref.watch(taskViewNotifierProvider.notifier).todayTasks()),
-                            TaskDueSection(
-                                dueTitle: 'Tomorrow',
-                                tasks: ref
-                                    .watch(taskViewNotifierProvider.notifier)
-                                    .tomorrowTasks()),
-                            TaskDueSection(
-                                dueTitle: 'This Week',
-                                tasks: ref
-                                    .watch(taskViewNotifierProvider.notifier)
-                                    .thisWeekTasks()),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
+            ),
           );
   }
 }
@@ -252,6 +255,14 @@ class SettingsScreen extends ConsumerWidget {
                     : const Icon(Icons.wb_sunny_outlined),
                 title: const Text('Dark Mode'),
               ),
+              SettingsTile.navigation(
+                leading: const Icon(Icons.font_download_outlined),
+                title: const Text('Task Font Size'),
+                value: Text(appSetting.taskFontSize.toString()),
+                onPressed: (BuildContext context) {
+                  DialogServices.pushChooseTaskFontSizeDialog(context);
+                },
+              ),
             ],
           ),
           SettingsSection(
@@ -261,7 +272,10 @@ class SettingsScreen extends ConsumerWidget {
                 leading: const Icon(Icons.account_box),
                 title: const Text('Login or Register'),
                 onPressed: (BuildContext context) {
-                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const AuthenticationScreen()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => const AuthenticationScreen()));
                 },
               ),
             ],
@@ -271,8 +285,11 @@ class SettingsScreen extends ConsumerWidget {
             tiles: <SettingsTile>[
               SettingsTile.navigation(
                 leading: const Icon(Icons.info_outline),
-                title: Text('TugasKu', style: GFont.dialogTitle,),
-                description: Text('Version ${ref.watch(appVersionNotifierProvider)}'),
+                title: Text(
+                  'TugasKu',
+                  style: GFont.dialogTitle,
+                ),
+                description: Text('Version ${ref.watch(appVersionNotifierProvider)}\nCreated by Aghnat'),
               ),
             ],
           ),
