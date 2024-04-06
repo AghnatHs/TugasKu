@@ -25,9 +25,11 @@ class TaskListBuilder extends ConsumerWidget {
         final task = tasks[index];
 
         return Dismissible(
+          resizeDuration: const Duration(milliseconds: 900),
           behavior: HitTestBehavior.deferToChild,
           key: ValueKey<String>(task.id),
           background: Container(color: Colors.red),
+          direction: DismissDirection.startToEnd,
           onDismissed: (DismissDirection direction) {
             ref.read(taskViewNotifierProvider.notifier).deleteTask(task: task);
             SnackbarServices.pushSnackbar(

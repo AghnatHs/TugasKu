@@ -71,10 +71,16 @@ class EditTaskDialogState extends ConsumerState<EditTaskDialog> {
               ),
               TextButton(
                 onPressed: () async {
+                  DateTime? initialDate = DateTime.tryParse(dueDateController.text);
+
+                  DateTime datetimeNow = DateTime.now();
+                  DateTime firstDate = DateTime(datetimeNow.year, datetimeNow.month);
+
                   DateTime? dateSelected = await showDatePicker(
                     context: context,
-                    firstDate: DateTime.now(),
-                    lastDate: DateTime(2090),
+                    initialDate: initialDate,
+                    firstDate: firstDate,
+                    lastDate: DateTime(2100),
                   );
 
                   if (dateSelected == null) return;
@@ -84,9 +90,15 @@ class EditTaskDialogState extends ConsumerState<EditTaskDialog> {
                     return;
                   }
 
+                  TimeOfDay initialTime;
+                  try {
+                    initialTime = TimeOfDay.fromDateTime(initialDate!);
+                  } catch (e) {
+                    initialTime = TimeOfDay.fromDateTime(dateSelected);
+                  }
                   final TimeOfDay? timeSelected = await showTimePicker(
                     context: context,
-                    initialTime: TimeOfDay.fromDateTime(dateSelected),
+                    initialTime: initialTime,
                   );
 
                   dateSelected = DateTime(dateSelected.year, dateSelected.month,
@@ -96,7 +108,7 @@ class EditTaskDialogState extends ConsumerState<EditTaskDialog> {
                   dueDateController.text = dueDate;
                   return;
                 },
-                child: const Text('Pick Date'),
+                child: const Text('Edit Date'),
               ),
             ],
           ),

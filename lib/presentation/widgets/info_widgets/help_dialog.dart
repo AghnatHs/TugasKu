@@ -22,7 +22,7 @@ class HelpDialogState extends ConsumerState<HelpDialog> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('1. Tap to mark done a task'),
-          Text('2. Swipe to delete task'),
+          Text('2. Swipe from left to delete task'),
           Text('3. Hold a task to edit'),
         ],
       ),
